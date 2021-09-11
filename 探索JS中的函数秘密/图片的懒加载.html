@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="height: 1200px"></div>
+    <div class="image-list">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20210526/aad8fb3612f333bd285687c694e34130.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20210526/fa1ce77c6b095f7365c108e76302e354.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20210526/ee8fe7accaee320d0a82e9e2cf6ff2a9.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20210526/6a1431bc6ac3ca60fd569c07ac94025a.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20210526/e366794bdefa14ebe136e6687a894679.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20200701/170e1317bb11063cc07975d225e950ad.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20200701/b5ed6e4ab2c6f066d1262e8135e0a558.png">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20200701/a3a5611d43524d742883c12960c8414e.jpg">
+        <img src="" alt="" data-src="http://file.nantang-tech.com/uploads/20200701/32b8000371618715fa5561c35fef7ec8.jpg">
+    </div>
+</body>
+<script>
+    let imgs = document.querySelectorAll('img')
+    function lazyLoad() {
+        let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        let winHeight = window.innerHeight;
+        for (let i = 0; i < imgs.length; i++) {
+            console.log(imgs[i].offsetTop, scrollTop, winHeight)
+            if (imgs[i].offsetTop < scrollTop + winHeight) {             
+                imgs[i].src = imgs[i].getAttribute('data-src')
+            }
+        }
+    }
+    window.onscroll  = () => {
+        lazyLoad()
+    }
+    // window.onscroll = lazyLoad()
+    // console.log(imgs)
+</script>
+</html>

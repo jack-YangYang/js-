@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    const isStr = value => typeof value === 'string'
+    const isNum = value => typeof value === 'number'
+    const isBoolean = value => typeof value === 'boolean'
+    const isNull = value => value === null
+    const isSymbol = value => typeof value === 'symbol'
+    const isBigInt = value => typeof value === 'BigInt'
+    function isSimpleType(value, fn) {// 现在要加类型进行判断
+        if (isStr(value) 
+        || isNum(value)
+        || isBoolean(value) 
+        || isNull(value)
+        || fn && fn(value)) {
+            return true
+        }
+        return false
+    }
+    // 在不改变原本功能的情况下继续添加新的额功能
+    function is_ES6_SimpleType(value) {
+        return isSimpleType(value, (value) => {
+            if (isSymbol(value) || isBigInt(value)) return true;
+            return false
+        })
+    }
+    console.log(is_ES6_SimpleType(Symbol()))
+</script>
+</html>

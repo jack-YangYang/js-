@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        ul {
+            display: flex;
+            list-style: none;
+            /* align-items: center; */
+            /* justify-content: center; */
+            flex-direction: column;
+            width: 300px;
+        }
+        li {
+            padding: 5px;
+            border: 1px solid greenyellow;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+        }
+        a {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            background-color: greenyellow;
+        }
+        li.remove {
+            border-color: #eee;
+            transition: all 3s;
+            color: #eee;
+        }
+        li.remove a {
+            background-color: #eee;
+            transition: all 3s;
+            color: #fff
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>oudunren<a href="#">X</a></li>
+
+        <li>houduren.com<a href="#">X</a></li>
+
+        <li>www.houdunren.com<a href="#">X</a></li>
+    </ul>
+</body>
+<script>
+    class TodoItem {
+        constructor() {
+            this.items = document.querySelectorAll('ul > li')
+            // this.lists = new WeakSet()
+            // this.items.forEach(item => this.lists.add(item))
+            console.log(this.items)
+        }
+        addEvent() {
+            this.run()
+        }
+        run() {
+            this.items.forEach(item => {
+                let listA = item.querySelectorAll('a')
+                listA.forEach(item => {
+                    item.addEventListener('click', event => {
+                        let parentElement = event.target.parentElement
+                       if(parentElement.getAttribute('class') === 'remove') return
+                        parentElement.classList.add('remove')
+                        console.log(123)
+                    })
+                })
+            })
+            
+        }
+    }
+    new TodoItem().addEvent()
+</script>
+</html>

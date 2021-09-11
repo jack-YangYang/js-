@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+     let webSockets = {
+        $websock: null,
+        webParams: null,
+        webUrl: null,
+        initWebSocket(url, params) {
+            url ? this.webUrl = url : ''
+            params ? this.webParams = params : ''
+            this.$websock = new WebSocket(this.webUrl)
+            this.$websock.onmessage = this.websocketonmessage; // 接收数据
+            this.$websock.onopen = this.websocketonopen; // 发送请求
+            this.$websock.onerror = this.websocketonerror;
+            this.$websock.onclose = this.websocketclose;
+         },
+        websocketonopen() { //  连接建立之后执行send方法发送数据
+            this.websocketonsend(this.params)
+         },
+        websocketonerror() { // 连接失败 重新连接
+            this.initWebSocket()
+         },
+        websocketonmessage(e) { // 数据接收
+            const result = JSON.parse(e.data)
+         },
+        websocketonsend(data) { // 数据发送
+            this.$websock.send(data)
+         },
+        websocketclose(e) {
+            console.log('断开连接', e)
+        }
+     }
+</script>
+</html>

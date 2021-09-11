@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function _new(func) {
+        // 第一步 创建一个新对象
+        let obj = {}
+        // 第二步 让新对象的__proto__属性指向的是构造函数的ptototype成员对象
+        obj.__proto__ = func.prototype
+        {
+            /*
+                第一步+第二步 const obj = Object.created(func.prototype)
+            */
+        }
+        // 第三步 使用apply调用构造函数，属性和方法被添加到this引用的对象中
+        let result = func.apply(obj) // this 引用的对象是obj
+        if (result && (typeof result === 'object' || typeof result === 'function')) {
+            // 如果构造函数执行结果返回的是一个对象，那么就返回这个对象
+            return result
+        }
+        // 如果构造函数返回的不是一个对象，返回新创建的对象
+        return obj
+    }
+</script>
+</html>

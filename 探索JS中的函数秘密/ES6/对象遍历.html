@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // for...in 循环会打印当前对象包括原型链上添加的所有属性 不打印Symbol
+
+        /*
+            遍历对象的打印顺序
+            1.首先遍历属性值为数字类型的键，按从小到大进行排序
+            2.根据属性为字符串的并且尊重创建时间顺序打印
+            3.smybol
+        */
+        let obj = {
+            a: 1,
+            1: 10,
+            2: 20,
+            b: 2,
+            c: 3,
+            [Symbol()]: 4
+        }
+        obj.__proto__.d = 5
+        console.log(obj)
+        for (let key in obj) {
+            console.log(key)
+        }
+        // Object.keys会将当前对象中的所有属性集合成数组，只有自身拥有的属性不包括原型链，也不包含Smybol
+        console.log(Object.keys(obj))
+         // Object.getOwnPropertyNames(会将当前对象中的所有属性集合成数组，只有自身拥有的属性不包括原型链，也不包含Smybol
+        console.log(Object.getOwnPropertyNames(obj))
+        /*
+            Object.getOwnPropertySymbols(obj) 只返回当前对象的Smybol键值数组
+        */
+        console.log(Object.getOwnPropertySymbols(obj))
+        /*
+            Object.getOwnPropertyDescriptor(obj, prop)
+            Object.getOwnPropertyDescriptor() 方法返回指定对象上一个自有属性对应的属性描述符。（自有属性指的是直接赋予该对象的属性，不需要从原型链上进行查找的属性）
+        */
+        console.log(Object.getOwnPropertyDescriptor(obj, 'a'))
+       /*   
+        bject.setPrototypeOf() 方法设置一个指定的对象的原型 ( 即, 内部[[Prototype]]属性）到另一个对象或  null
+       */
+        let objFun = {
+            getName() {
+                console.log(this.a)
+            }
+        }
+        Object.setPrototypeOf(obj, objFun)
+        obj.getName()
+        // Object.getPrototypeOf(obj) 获取当前对象的原型对象
+       console.log(Object.getPrototypeOf(obj))
+    </script>
+</body>
+</html>

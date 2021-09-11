@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="content">
+        <div class="top triangle"></div>
+        <div class="bottom triangle"></div>
+        <div class="left triangle"></div>
+        <div class="right triangle"></div>
+    </div>
+    <div class="fanshaped"></div>
+    <div class="semicircle"></div>
+    <div class="square"></div>
+</body>
+</html>
+<style>
+    .content {
+        display: flex;
+    }
+    .triangle {
+        width: 0;
+        height: 0;
+    }
+    .top {
+        border-bottom: 100px solid red;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+    }
+    .bottom {
+        border-top: 100px solid red;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+    }
+    .left {
+        border-right: 100px solid red;
+        border-bottom: 100px solid transparent;
+        border-top: 100px solid transparent;
+    }
+    .right {
+        border-left: 100px solid red;
+        border-bottom: 100px solid transparent;
+        border-top: 100px solid transparent;
+    }
+    .fanshaped {
+        width: 0;
+        height: 0;
+        border-top: 100px solid red;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-radius: 50%;
+    }
+    .semicircle {
+        background-color: red;
+        width: 100px;
+        height: 50px;
+        border-radius: 100px 100px 0px 0px;
+    }
+    .square {
+        width: 10%;
+        height: 10vw;
+        background: tomato;
+    }
+</style>

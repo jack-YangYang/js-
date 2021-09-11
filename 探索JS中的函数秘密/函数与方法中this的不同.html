@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    
+    // this 只有作为对象的属性的时候，当前的函数被称为方法，this指向当前的调用的对象，如果不是，哪怕是声明在对象中的函数，this指向全局 window
+    name = '小杨'
+    let hd = {
+        site: 'hd',
+        show: function() {
+            console.log(this)
+            function render() {
+                console.log(this.site)
+                console.log(this.name)
+            }
+            render()
+            // return this.site // this指向当前的对象
+        }
+    }
+    console.log(hd.show())
+    function User(name) {
+        this.name = name
+        this.show = function() {
+            function render() {
+                console.log(this) // window
+            }
+            render()
+            console.log(this) // lisi
+            return this.name
+        }
+    }
+    let lisi = new User('李四')
+    console.log(lisi.show())
+</script>
+</html>

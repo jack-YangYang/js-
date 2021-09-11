@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set</title>
+</head>
+<body>
+    <script>
+        let arr = [1, 2, 3 ,2, 3, 4, 1]
+        let arr2 = [...new Set(arr)]
+        // console.log(arr2)
+        // console.log(Array.from(new Set(arr)))
+
+
+        // for (let i  = 0; i < arr.length; i++) {
+        //     for (let j = 0; j < i; j++) {
+        //         if (arr[j] === arr[i]) {
+        //             arr.splice(j, 1)
+        //             j--
+        //         }
+        //     }
+        // }
+        // console.log(arr)
+
+        let arrX = [1, 2, 3]
+        let arrY = [2, 3, 4]
+        // 并集
+        let union = [...new Set([...arrX, arrY])]
+        console.log(union)
+        // 交集
+        let intersection = [...new Set(arrX)].filter(item => new Set(arrY).has(item))
+        console.log(intersection)
+        //差集
+        let difference = [...new Set(arrX)].filter(item => !new Set(arrY).has(item))
+        console.log(difference)
+    </script>
+</body>
+</html>

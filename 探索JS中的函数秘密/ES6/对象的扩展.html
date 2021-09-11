@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let obj = {
+        a: 6, 
+        b: 2,
+        c: 3,
+        d: 5,
+        e: 4
+    }
+    let arr = Object.entries(obj)
+    for (let i = 0; i < arr.length -1 ; i++) {
+        for (let j = 0; j < arr.length - i -1; j++) {
+            let itemMin = arr[j]
+            let itemMax = arr[j + 1]
+            if (itemMin[1] < itemMax[1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+                j--
+            }
+        }
+    }
+    let newObj = new Map(arr)
+    console.log(newObj)
+    console.log(arr)
+    let arr2 = [1, 2, 7, 5, 3, 8, 4]
+    for (let j = 0; j < arr2.length - 1; j ++) {
+        for (let i = 0; i < arr2.length - j - 1; i++) {
+            if (arr2[i] > arr2[i + 1]) {
+                [arr2[i], arr2[i + 1]] = [arr2[i + 1], arr2[i]]
+                
+            }
+        }
+    }
+    console.log(arr2)
+</script>
+</html>

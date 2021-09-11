@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<body>
+    <input type="text" placeholder/>
+    <span></span>
+</body>
+<script>
+    // 函数的防抖
+    function debounce(fn, delay = 300) {
+        let timer  = null
+        return function() {
+            const args  = arguments
+            if (timer) {
+                clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, args)
+            }, delay)
+        }
+    }
+    // 函数节流
+    function throttle(fn, delay) {
+        let flag = true
+        return () => {
+            if (!flag) return
+            flag = false
+            timer = setTimeout(() => {
+                fn()
+                flag = true
+            }, delay)
+        }
+    }
+    // 数组扁平化
+    function flatArr(arr) {
+        return arr.flat(Infinity) // Infinity  不管多少层嵌套全部换成一维数组
+    }
+    function flatReduce(arr) {
+        return arr.reduce((array, item) => {
+            return array.concat(Array.isArray(item) ? flatReduce(item) : item)
+        }, [])
+    }
+    // 递归实现
+    function flarArrfun(arr) {
+        let list = []
+        for (let item of arr) {
+            Array.isArray(item) ? list = list.concat(flarArrfun(item)) : list.push(item)
+        }
+        return list
+    }
+    // reduce实现
+    function flatArrReduceFun(arr) {
+        const list  = arr.reduce((array, item) => {
+            return array.concat(Array.isArray(item) ? flatArrReduceFun(item) : item)
+        }, [])
+        return list
+    }
+    // toString和split实现
+    function flatten(arr) {
+        return arr.toString().split()
+    }   
+    //数组去重
+    function removal(arr) {
+        return [...new Set(arr)]
+    }
+    // 双重for循环删除去重
+    function traverseFun(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = i + 1; j < arr.length; j++) {
+                if (arr[i] = arr[j]) {
+                    arr.splice(arr[j], 1)
+                    j--
+                }
+            }
+        }
+        return arr
+    }
+    // includes
+    function removalFun(arr) {
+        let list = []
+        for (let item of arr) {
+            if (!list.includes(item)) {
+                list.push(item)
+            }
+        }
+    }
+    // indexof去重
+    function removalIndexOf(arr) {
+        let list = []
+        for (let item of arr) {
+            if (list.indexOf(item) === -1) {
+                list.push(item)
+            }
+        }
+    }
+    // reduce
+    function removalReduce(arr) {
+        let list = []
+        arr.reduce((obj, item) => {
+            obj[item] ? obj[item] = ++obj[item] : obj[item] = 1 && list.push(item)
+            return obj
+        }, {})
+        return list
+    }
+    // map 去重
+    function removalMap(arr) {
+        let list = []
+        let map = new Map()
+        for (let item of arr) {
+            if (!map.has(item)) {
+                list.push(item)
+                map.set(item, true)
+            }
+        }
+    }
+    // filter去重
+    function filterFlat(arr) {
+        return arr.filter((item, index, array) => array.indexOf(item) === index)
+    }
+    //使用map存储不重复的数字
+    function uniqueArray(arr) {
+        let res = []
+        let map = {}
+        for (let item of arr) {
+            if (!map.hasOwnProperty(item)) {
+                map[item] = item
+                res.push(item)
+            }
+        }
+    }
+    // 获取数组中的最大值和最小值
+    function getMaxandMin(arr) {
+        return [Math.max(...arr), Math.min(...arr)]
+    }
+    // 迭代获取最大值
+    function getMaxandMinFun(arr) {
+        let max = arr[0]
+        let min = arr[0]
+        for (let i = 0;i < arr.length; i++) {
+            if (max < arr[i]) {
+                max = arr[i]
+            }
+            if (min > arr[i]) {
+                min = arr[i]
+            }
+        }
+        return [max, min]
+    }
+    // 数组排序
+    function sort(arr, type = 0) {
+        return arr.sort((a, b) => {
+            return type ? a - b : b -a
+        })
+    }
+    // 冒泡排序
+    function sortFun(arr) {
+        for (let i = 0; i< arr.length; i++) {
+            for (let k = 0; k < arr.length - 1; k++) {
+                if (arr[k] > arr[k + 1]) {
+                   [arr[k], arr[k + 1]] = [arr[k + 1], arr[k]]
+                }
+            }
+        }
+        return arr
+    }
+    // 浅拷贝 对象站看
+    function copy(obj) {
+        return {...obj}
+    }
+    // 浅拷贝 对象合并
+    function copyAssian(obj) {
+        return Object.assign({}, obj)
+    }
+    // 浅拷贝 循环
+    function iterationCopy(obj) {
+        let newObj = {}
+        for (let k in obj) {
+                newObj[k] = obj[k]
+        }
+    }
+    // 深拷贝
+    function jsonParseCopy(obj) { // 遇到对象有属性的值为undefined 就处理不了
+       return JSON.parse(JSON.stringify(obj))
+   }
+   // 深拷贝
+    function deepCopy(obj) { // 对象中有属性的值是对象的就会出现问题
+        let newObj = {}
+        for (let key in obj) {
+            newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key]
+        }
+        return newObj
+    }
+    // 深拷贝plus
+    function deepCopyPlus(obj) {
+        let res  = Array.isArray(obj) ? [] : {}
+        for (let [key, value] of Object.entries(obj)) {
+            res[key] = typeof value === 'object' ? deepCopyPlus(value) : value
+        }
+    }
+    // 手写new操作符
+    function newFn(fn) {
+        const response = Object.create(fn.prototype) // 创建一个新对象并且当前对象的原型指向的构造函数的原型对象
+        let result = fn.call(response) // 将新对象绑定到函数调用的this
+        if (result && (typeof result === 'object' || typeof result === 'function')) {
+            // 如果构造函数执行结果返回的是一个对象，那么就返回这个对象
+            return result
+        }
+        // 如果构造函数返回的不是一个对象，返回新创建的对象
+        return response
+    }
+    // 两个值交换
+    function changeValue(a, b) {
+        let c  = a
+        a = b
+        b = c
+        return { a, b }
+    }
+    // 不用第三个值
+    function changeValuePlus(a, b) {
+        a = a + b
+        b = a - b
+        a = a -b
+        return { a, b }
+    }
+    // 数组元素求和
+    function getSum(list) {
+        let total = 0
+        for (let i  = 0; i < list.length; i++) {
+            total += list[i]
+        }
+        return total
+    }
+    // reduice方法
+    function getSumPlus(list) {
+        return list.reduce((total, item) => {
+            return total += item
+        }, 0)
+    }
+    // 递归的方式
+    function getSumPlusx(list) {
+        if (list.length === 1) return arr[0]
+        return list[0] + getSumPlusx(list.slice(1))
+    }
+    // 找到数组中出现次数最多的元素
+    function getMaxTime(list) {
+        const listObj = list.reduce((obj, item) => {
+            Object.prototype.hasOwnProperty.call(obj, item) ? obj[item] = ++obj[item] : obj[item] = 1
+            return obj
+        }, {})
+        const maxTime = Math.max.apply(Math, Object.values(listObj))
+        let maxTimeNum
+        for (let key in listObj) {
+            if (listObj[key] === maxTime)
+            maxTimeNum = key
+            break;
+        }
+        return {
+            [maxTimeNum]: maxTime
+        }
+    }
+    console.log(getMaxTime([1, 2, 3, 1, 2, 1]))
+    // 手写Object.create
+    function create(obj) {
+        function F() {}
+        F.prototype = obj
+        return new F()
+    }
+    // 手写filter
+    Array.prototype._filter = function(fn) {
+        if (typeof fn !== "function") {
+            throw Error('参数必须是一个函数');
+        }
+        const res = [];
+        for (let i = 0, len = this.length; i < len; i++) {
+            console.log(this) // arr
+            fn(this[i]) && res.push(this[i])
+        }
+        return res;
+    }
+    // console.log([1, 2, 4, 5]._filter(item => ))    
+    // 手写map
+    Array.prototype._map = function(fn) {
+        if (typeof fn !== 'function') {
+            throw TypeError('参数类型错误')
+        }
+        let res = []
+        for (let i = 0; i < this.length; i++) {
+            res.push(fn(this[i]))
+        }
+        return res
+    }
+    // 重复字符串
+    function repeat(s, n) { // s:需要重复的字符串 n:需要重复的次数
+        // 原理：首先生成占位符为空的数组，然后进行用需要重复的字符串进行拼接
+        // new Array(n + 1) [empty * n + 1]
+        return (new Array(n + 1)).join(s);
+    }
+    //  字符串翻转
+    String.prototype._reverse = (a) => {
+        return a.split().reverse().join()
+    }
+    // 使用prototype继承 让新实例的原型等于父类的实例
+    function Father(flag1) {
+        this.flag1 = flag1
+        this.getFlag = function() {
+            console.log(this.flag1)
+        }
+    }
+    function Son(flag2) {
+        this.flag2 = flag2
+    }
+    Son.prototype = new Father(false)
+    // 实现双向绑定
+    let obj = { name: 'yangyang' }
+    let input = document.querySelector('input')
+    let span  = document.querySelector('span')
+    // 开始数据劫持 vue2.x
+    Object.defineProperty(obj, 'text', {
+        get() {
+            console.log('数据获取了')
+        },
+        set(val) {
+            input.value = val
+            span.innerHTML = val
+        }
+    })
+    input.addEventListener('keyup', (e) => {
+        obj.text = e.target.value
+    })
+    // 使用Vue3.0 proxy进行数据代理
+    let proxy = new Proxy(obj, {
+        get(target, property) {
+            console.log(target[property])
+            console.log('数据获取了')
+        },
+        set(target, property, value) {
+            target[property] = value
+            console.log('数据设置了')
+        }
+    })
+    proxy.name = '123'
+    // function permute(nums) {
+    //     if (nums.length === 1) return [nums]
+    //     let res = []
+    //     for (let i = 0; i < nums.length; i++) {
+    //         res = res.concat(
+    //             permute([...nums.slice(0, i), ...nums.slice(i + 1)].map(v => [nums[i], ...v]))
+    //         )
+    //     }
+    //     return res
+    // }
+    // console.log(permute([1, 2, 3]))
+
+    // 给一个非空数组，找出只出现了一次的元素
+    const arrDemo = [1, 2, 3, 1, 2, 3, 4]
+    function getOnceTime(arrDemo) {
+        const arrParams = arrDemo.reduce((params, item) => {
+            params[item] = params[item] ? ++params[item] : params[item] = 1
+            return params
+        }, {})
+        let arrParamsMin = Math.min(...Object.values(arrParams))
+        let min = null
+        for (let key in arrParams) {
+            if (arrParams[key] === arrParamsMin) { // 根据最小次数拿到键值
+                min = key
+                break
+            }
+        }
+        return min
+    }
+    console.log(getOnceTime(arrDemo))
+
+    // 手写call方法 // 支持多个参数
+    Function.prototype.myCall = function(ctx) {
+        ctx = ctx || window
+        let fn = Symbol() // 创建一个不会重复的属性
+        ctx[fn] = this // this指向当前调用的函数
+        console.log(arguments, 'arguments')
+        let result = ctx[fn](...[...arguments].slice(1)) // 拿到除了第一个以外后面的所有参数
+        delete ctx[fn]
+        return result
+    }
+    let obj23 = {
+        name:'xiaoyang'
+    }
+    function foo(a) {
+        console.log(a)
+        console.log(this.name + a) // 小杨
+    }
+    // 手写apply方法 支持多个参数 但只能是两个 第一个要指向的this对象 第二个参数数组
+    Function.prototype.myApply = function (ctx) {
+        ctx = ctx || window
+        let fn = Symbol() 
+        ctx[fn] = this // this指向当前调用的函数
+        let result = null
+        if (arguments[1]) { // 判断当前有没有传递参数
+            result = ctx[fn](...arguments[1])
+        } else {
+            result = ctx[fn]()
+        }
+        delete ctx[fn]
+        return result
+    }
+    // foo.myApply(obj, ['xiongxiong'])
+    foo.myCall(obj23, 'xiongxiong')
+    // 指定一个非负整数的数组。初始位置在第一个索引处，数组的每一个元素代表你可以跳跃的最大长度，能否到大最后一个索引
+    let arr = [1, 2, 4, 5, 6]
+    function getlastIndex(arr) {
+        if (!arr.length) return false
+        let item = arr[0]
+        let nextItem = arr[item] 
+        if (nextItem === undefined) return false
+        return nextItem === arr[arr.length - 1] ? true : getlastIndex(arr.slice(item))
+    }
+    console.log(getlastIndex(arr))
+</script>  
+</html>

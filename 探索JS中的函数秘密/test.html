@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // for (var i = 0; i <= 5; i++) {
+    //     setTimeout(function time(params) {
+    //         console.log(i) // 6
+    //     }, i * 1000)
+    // }
+    // for (let j = 0; j <= 5; j++) {
+    //     setTimeout(function time(params) {
+    //         console.log(j) // 0 1 2 3 4 5
+    //     }, j * 1000)
+    // }
+    function getMaxNum(arr) {
+        if (!Array.isArray(arr)) return undefined
+        if (!arr.length) return undefined
+        // 拿到数组中所有项组成一个对象 
+        const formatObj = arr.reduce((obj, item) => {
+            obj[item] = obj[item] ? ++obj[item] : 1 // 有则+1 无则等于1
+            return obj
+        }, {})
+        return max(formatObj)
+        function max(obj) {
+            const Maxvalue = Math.max.apply(Math, Object.values(obj)) // 拿到最大次数
+            let maxKey = null
+            for (let key in obj) {
+                if (obj[key] === Maxvalue) { // 通过最大次数寻找是哪一项
+                    maxKey = key
+                    break
+                }
+            }
+            return [maxKey, Maxvalue]
+        }
+    }
+    function getmaxNumFunTwo(arr) {// [1 ,1 ,2 ,3, 4, 2, 2, 3]
+        if (!Array.isArray(arr)) return undefined
+        if (!arr.length) return undefined
+        const newArr = [...new Set(arr)] // [1, 2, 3, 4]
+        let obj = {}
+        for (let i  = 0; i < arr.length; i++) {
+            for (let j = 0; j < newArr.length; j++) {
+                if (arr[i] === newArr[j]) {
+                    if (Object.prototype.hasOwnProperty.call(obj, arr[i])) {
+                        obj[arr[i]] = ++obj[arr[i]]
+                    } else {
+                        obj[arr[i]] = 1
+                    }  
+                }
+            }
+        }
+        return obj
+    }
+    // 数组去重
+    function getRidSame(arr = []) {
+        let newArr = []
+        for (let i = 0; i< arr.length; i++) {
+            if (!newArr.includes(arr[i])) {
+                newArr.push(arr[i])
+            }
+        }
+        return newArr
+    }
+    // 深拷贝 对象中都是对象
+    function deepCopy(obj) {
+        let result = {}
+        for (let key in obj) {
+            result[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key]
+        }
+        return result
+    }
+    // 深拷贝 对象中有数组也有对象
+    function deepCopyAndArr(obj) {
+        let result = Array.isArray(obj) ? [] : {}
+        for (const [key, value] of obj) {
+            result[key] === typeof value === 'object' ? deepCopyAndArr(value) : value
+        }
+        return result
+    }
+    // 如何实现浅拷贝
+    function shallowCopy1(obj) {
+        return Object.assign({}, obj)
+    }
+    function shallowCopy2(obj) {
+        const newObj = {}
+        newObj = {...obj}
+        return newObj
+    }
+    function shallowCopy2(obj) {
+        let newObj = {}
+        for (let key in obj) {
+            newObj[key] = obj[key]
+        }
+        return newObj
+    }
+</script>
+</html>

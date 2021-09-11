@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // var a = 1
+    // console.log(a)
+    // function fn1() {
+    //     let a = 1
+    //     function fn2() {
+    //         console.log(a)
+    //     }
+    //     fn2()
+    // }
+    // fn1()
+    let lessons = [
+        {
+            name: 'JS',
+            click: 50
+        },
+        {
+            name: 'html',
+            click: 30
+        },
+        {
+            name: 'css',
+            click: 35
+        }
+    ]
+    function change(list, num = 100, i = 0) {
+        console.log(list)
+        if (i === list.length) return list
+        list[i].click += num
+        return change(list, num, ++i)
+        // return i === list.length ? list : (list[i].click += num || change(list, num, ++i))
+    }
+    console.table(change(lessons))
+    function fun(n, o) {
+        console.log(o)
+        return {
+            fun: function(m) {
+                return fun(m, n)
+            }
+        }
+    }
+    let a = fun(0);a.fun(1);a.fun(2);a.fun(3) // undefined 0, 0, 0 n永远都是0
+    let b = fun(0).fun(1).fun(2).fun(3) // undefined 0, 1, 2 n是当前之前函数的前一个 因为闭包变量不会销毁
+    let c = fun(0).fun(1);c.fun(2);c.fun(3) // undefined 0, 1, 1 最后传入的n为1，此时因为闭包n不会销毁
+    function Super(name) {
+        this.name = name
+    }
+    Super.prototype.showName = function() {
+        console.log(this.name)
+    }
+    function Sub(name) {
+        this.name = name
+    }
+    Sub.prototype = Super.prototype // 方法一：让子类的原型指向父类的原型对象
+    // Sub.prototype = new Super() // 方法二：让子类的原型成为父类的实例
+    let sub = new Sub('hello xiaoyang')
+    // sub.__proto__ = Super.prototype // 方法三：让子类的构造函数的实例 指向父类的原型对象
+    sub.showName()
+    let obj1 = {
+        name: '杨洋'
+    }
+    let obj2 = {
+        age: 13,
+        showName() {
+            console.log(this.name)
+        }
+    }
+    obj1.__proto__  = obj2
+    obj1.showName()
+</script>
+</html>

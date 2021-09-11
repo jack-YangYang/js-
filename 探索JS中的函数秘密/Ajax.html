@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let xhr = new XMLHttpRequest()
+    // open 请求方式，地址，是否异步
+    xhr.open('get', url, true)
+    xhr.onreadystatechange = function() {
+        if (this.readyState !== 4) return // 只有当状态为4的时候代表服务器返回的数据接收完成
+        if (this.status === 200) { // 判断请求的状态为200 代表成功
+            console.log(this.response)
+        } else {
+            console.log(this.statusText)
+        }
+    }
+    // 设置请求失败时的监听函数
+    xhr.onerror = function() {
+        console.error(this.statusText)
+    }
+    
+    // 设置请求头的信息
+    xhr.responseType = 'json'
+    xhr.setRequestHeader('Accept', "application/json")
+    // 发起请求
+    xhr.send(null)
+
+    // 使用promise 封装Ajax
+    1.// promise 封装实现
+    function getJSON(url, params, method) {
+        let promise = new Promise((reslove, reject) => {
+            let xhr = new XMLHttpRequest()
+            xhr.open(method, url, true)
+            xhr.onreadystatechange = function() {
+                if (this.readyState !== 4) return // 只有当状态为4的时候代表服务器返回的数据接收完成
+                if (this.status === 200) { // 判断请求的状态为200 代表成功
+                    reslove(this.response)
+                } else {
+                    reject(new Error(this.statusText))
+                }
+                // 设置请求失败时的监听函数
+                xhr.onerror = function() {
+                    console.error(this.statusText)
+                }  
+                // 设置请求头的信息
+                xhr.responseType = 'json'
+                xhr.setRequestHeader('Accept', "application/json")
+                // 发起请求
+                xhr.send(JSON.stringify(params))
+            }        
+        })
+        return promise
+    }
+    getJSON('/user', 'get').then(res => {
+        console.log(res)
+    })
+</script>
+</html>

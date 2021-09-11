@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div>
+        <input id="name" />
+        <input id="age" />
+        <input type="button" value="添加" id="btn">
+    </div>
+    <table border="0" cellspacing="0" cellpadding="">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>邮箱</th>
+            </tr>
+        </thead>
+        <tbody id="tbd"></tbody>
+    </table>
+</body>
+<script>
+    function hd(a) {
+        return a<= 3
+    }
+    let arr = [1 ,2, 3, 4, 4, 5, 6, 7].filter(hd)
+    console.log(arr)
+
+    function sum(...args) {
+        console.log(args)
+        return args.reduce((a, b) => a + b)
+    }
+    console.log(sum(1 ,2, 3, 4, 5))
+    const btn  = document.querySelector('#btn')
+    let list = []
+    btn.addEventListener('click', () => {
+        const name = document.querySelector('#name').value
+        const age = document.querySelector('#age').value
+        const tbody = document.querySelector('#tbd')
+        const tr = document.createElement('tr')
+        const td1 = document.createElement('td')
+        const td2 = document.createElement('td')
+        td1.innerHTML = name
+        td2.innerHTML = age
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+        tbody.appendChild(tr)
+    })
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 通过Symbol创建的任何值都是唯一且不相等的
+        let a = Symbol()
+        let b = Symbol()
+        console.log(a, b, a===b)
+        
+        let c = Symbol('hello')
+        let d = Symbol('hello')
+        console.log(c, d, c===d)
+
+        //通过Symbol.for(string)创建的相同字符串的值是相等的
+        let e = Symbol.for('color') // 首先会找是否出现相同的字符串 如果出现那么则用之前出现的Symbol值
+        let f = Symbol.for('color')
+        console.log(Symbol.keyFor(e)) // 只有通过Symbol.for创建的才可以找到string
+        console.log(e === f)
+    </script>
+</body>
+</html>

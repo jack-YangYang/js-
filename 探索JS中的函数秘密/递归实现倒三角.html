@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function start(num) {
+        num ? (document.write('*'.repeat(num) + "<br />") || start(--num)) : ''
+    }
+    start(5)
+    let data = [
+        { a: [{ id: 1, age: 1 } , { id: 6, age: 5 }] },
+        { b: [{ id: 2, age: 2 } , { id: 3, age: 4 }] }
+    ]
+    let res = []
+    data.forEach(item => {
+        for (let key in item) {
+            res = [...res, ...item[key]]
+        }
+    })
+    console.log(res)
+    const result = data.reduce((res, item) => {
+        for (let key in item) {
+            return [...res, ...item[key]]
+        }
+    }, [])
+    console.log(result)
+    // let array = ['红', '绿', '蓝', '白']
+    // let index = [2, 1, 3, 0]
+    // function indexOfArr(arr, indexList) {
+    //     let newArr = []
+    //     for (let item of indexList) {
+    //         newArr.push(arr[item])
+    //     }
+    //     return newArr
+    // }
+    // let rowData = [
+    //     {
+    //         Xname: '122'
+    //     },
+    //     {
+    //         name: 1
+    //     },
+    //     {
+    //         name: 1
+    //     },
+    //     {
+    //         Xname: '456'
+    //     },
+    //     {
+    //         age: 10
+    //     }
+    // ]
+    // const num = rowData.filter(item => !item.hasOwnProperty('Xname'))
+    // .map(item => Object.values(item)).
+    // flat().
+    // reduce((prev, next) => parseInt(prev) + parseInt(next), 0)
+    // console.log(num)
+</script>
+</html>

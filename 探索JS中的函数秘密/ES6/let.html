@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>let</title>
+</head>
+<body>
+    <button>btn-1</button>
+    <button>btn-2</button>
+    <button>btn-3</button>
+    <button>btn-4</button>
+    <button>btn-5</button>
+
+    <script>
+        /**
+         * 1.块级作用域
+         * 2.不存在变量提升
+         * 3.不允许重复声明
+         * 4.暂时性死区 避免变量引用改变
+         * 5.顶层对象属性 不属于window
+        */
+        var btns = document.querySelectorAll('button')
+        var length = btns.length
+        for (var i = 0; i < length; i++) {
+            (function(i) {
+                btns[i].onclick = () => {
+                    console.log(i)
+                }
+            })(i)
+        }
+        // 暂时性死区
+        // var name = 'Tom'
+        // if (true) {
+        //     console.log(name)
+        //     let name = 'Bob'
+        // }
+        let age = 10
+        var sex = '男'
+        console.log(window.age, window.sex) // undefined 男
+    </script>
+</body>
+</html>
